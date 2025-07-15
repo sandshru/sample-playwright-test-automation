@@ -6,6 +6,11 @@ export const getCookieConsentDialogLocators = (page: Page) => ({
   manageOptionsButton: page.getByRole('button', { name: 'Manage options' })
 })
 
+export const getAdPopupLocators = (page: Page) => ({
+  adPopup: page.locator('iframe[name="aswift_3"]'),
+  closeButton: page.locator('iframe[name="aswift_3"]').contentFrame().getByRole('button', { name: 'Close ad' })
+})
+
 export const getHeaderLocators = (page: Page) => {
     const header = page.locator('div.panel.header');
     return {
