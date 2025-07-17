@@ -1,10 +1,10 @@
 import { test } from '../../fixtures/loginRegistrationFixture';
 import { generateUniqueCustomer } from '../../utils/faker-utils';
-import { 
+import {
+    createCustomer, 
     generateCustomerToken,
     getCustomerIDByToken,
     getCustomer,
-    deleteCustomer,
  } from '../../api/customer-api';
 import { expect } from '@playwright/test';
 
@@ -14,11 +14,12 @@ test.describe('Login and Registration Tests', () => {
   });
 
   test('should register and verify that the user is logged in', async ({
+    accountPage,
     homePage, 
     registrationPage
     }) => {
     const uniqueCustomer = generateUniqueCustomer();
-    console.log(`Generated Customer: ${JSON.stringify(uniqueCustomer)}`);
+    console.log(`Generated Customer Data: ${JSON.stringify(uniqueCustomer)}`);
     await homePage.consentButton.click();
     await homePage.createAccountLink.click();
     const title = await registrationPage.getTitle();
@@ -36,13 +37,24 @@ test.describe('Login and Registration Tests', () => {
     console.log(`Customer ID: ${customerId}`);
     const customerData = await getCustomer(token);
     expect(customerData.email).toBe(uniqueCustomer.customer.email);
-    // Add assertions as needed
+    await accountPage.contactInformationVisible(
+        uniqueCustomer.customer.firstname,
+        uniqueCustomer.customer.lastname,
+        uniqueCustomer.customer.email
+    );
+    await accountPage.expectSuccessfulRegistrationNotification();
   });
 
   test('should login with valid credentials', async ({ loginPage }) => {
+    const uniqueCustomer = generateUniqueCustomer();
+    console.log(`Generated Customer Data: ${JSON.stringify(uniqueCustomer)}`);
+    const response = await createCustomer(uniqueCustomer);
+    expect(response.email).toBe(uniqueCustomer.customer.email);
+    console.log(`Customer created with ID: ${response.id}`);
     await loginPage.navigateTo();
     const title = await loginPage.getTitle();
     console.log(`Login Page Title: ${title}`);
-    // Add assertions as needed
+    await loginPage.login(uniqueCustomer.customer.email, uniqueCustomer.password);
+    await loginPage.expectLoggedIn(uniqueCustomer.customer.firstname, uniqueCustomer.customer.lastname);
   });
 }); 

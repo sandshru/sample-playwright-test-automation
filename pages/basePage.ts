@@ -1,4 +1,4 @@
-import { Page, Locator } from "@playwright/test";
+import { Page, Locator, expect } from "@playwright/test";
 import { 
     getHeaderLocators, 
     getNavBarLocators, 
@@ -8,6 +8,8 @@ import {
 
 export class BasePage {
   protected page: Page;
+
+  readonly logoLink: Locator;
 
   readonly header: Locator;
   readonly headerLinks: Locator;
@@ -31,6 +33,8 @@ export class BasePage {
 
   constructor(page: Page) {
     this.page = page;
+
+    this.logoLink = page.getByRole('link', { name: 'store logo' })
 
     const headerLocators = getHeaderLocators(page);
     this.header = headerLocators.header;
@@ -71,5 +75,7 @@ export class BasePage {
     await this.createAccountLink.click();
   }
 
-  
+  async expectLoggedIn(firstname: string, lastname: string) {
+    expect(await this.headerLinks.innerText()).toContain(`Welcome, ${firstname} ${lastname}!`);
+  }
 }
