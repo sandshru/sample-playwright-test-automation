@@ -12,7 +12,7 @@ export class LoginPage extends BasePage {
 
     this.emailInput = page.getByRole('textbox', { name: 'Email*' });
     this.passwordInput = page.getByRole('textbox', { name: 'Password* Password' });
-    this.loginButton = page.locator('#send2');
+    this.loginButton = page.locator('#send2').first();
     this.forgotPasswordLink = page.getByRole('link', { name: 'Forgot Your Password?' });
   }
 

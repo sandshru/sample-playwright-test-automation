@@ -11,6 +11,7 @@ import { expect } from '@playwright/test';
 test.describe('Login and Registration Tests', () => {
   test.beforeEach(async ({ homePage }) => {
     await homePage.navigateTo();
+    await homePage.consentButton.click();
   });
 
   test('should register and verify that the user is logged in', async ({
@@ -20,7 +21,6 @@ test.describe('Login and Registration Tests', () => {
     }) => {
     const uniqueCustomer = generateUniqueCustomer();
     console.log(`Generated Customer Data: ${JSON.stringify(uniqueCustomer)}`);
-    await homePage.consentButton.click();
     await homePage.createAccountLink.click();
     const title = await registrationPage.getTitle();
     console.log(`Registration Page Title: ${title}`);
