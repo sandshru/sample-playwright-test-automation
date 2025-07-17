@@ -2,7 +2,8 @@ import { Page, Locator } from "@playwright/test";
 import { 
     getHeaderLocators, 
     getNavBarLocators, 
-    getCookieConsentDialogLocators 
+    getCookieConsentDialogLocators,
+    getAdPopupLocators 
 } from "../locators";
 
 export class BasePage {
@@ -24,6 +25,9 @@ export class BasePage {
   readonly cookieConsentDialog: Locator;
   readonly consentButton: Locator;
   readonly manageOptionsButton: Locator;
+
+  readonly adPopup: Locator;
+  readonly closeAdPopupButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -47,6 +51,10 @@ export class BasePage {
     this.cookieConsentDialog = cookieConsentLocators.cookieConsentDialog;
     this.consentButton = cookieConsentLocators.consentButton;
     this.manageOptionsButton = cookieConsentLocators.manageOptionsButton;
+
+    const adPopupLocators = getAdPopupLocators(page);
+    this.adPopup = adPopupLocators.adPopup;
+    this.closeAdPopupButton = adPopupLocators.closeButton;
   }
 
   async acceptCookieConsent() {

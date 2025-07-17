@@ -1,4 +1,6 @@
-export const baseCustomer = {
+import { BaseCustomer } from "../interfaces/customer-data"
+
+export const baseCustomer: BaseCustomer = {
     "customer": {
         "email": "jdoe@example.com",
         "firstname": "Jane",

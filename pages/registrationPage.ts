@@ -26,4 +26,12 @@ export class RegistrationPage extends BasePage {
   async getTitle() {
     return this.page.title();
   }
+
+  async fillRegistrationForm(firstName: string, lastName: string, email: string, password: string) {
+    await this.firstNameInput.fill(firstName);
+    await this.lastNameInput.fill(lastName);
+    await this.emailInput.fill(email);
+    await this.passwordInput.fill(password);
+    await this.confirmPasswordInput.fill(password);
+  }
 }

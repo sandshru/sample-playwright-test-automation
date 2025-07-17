@@ -13,8 +13,8 @@ export function generateUniqueCustomer() {
         customer: {
             ...baseCustomer.customer,
             email: faker.internet.email(),
-            firstName: faker.person.firstName(),
-            lastName: faker.person.lastName(),
+            firstname: faker.person.firstName(),
+            lastname: faker.person.lastName(),
             addresses: [{
                 ...baseCustomer.customer.addresses[0],
                 firstname: faker.person.firstName(),
@@ -31,6 +31,6 @@ export function generateUniqueCustomer() {
                 telephone: faker.phone.number(),
             }],
         },
-        password: faker.internet.password({length:10, pattern: /^(?:(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*)$/}), // At least one digit, one lowercase, and one uppercase letter
+        password: faker.helpers.fromRegExp('[0-9]{3}[a-z]{3}[A-Z]{3}') // At least one digit, one lowercase, and one uppercase letter
     };
 }
