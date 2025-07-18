@@ -19,7 +19,7 @@ test.describe('Login and Registration Tests', () => {
     homePage, 
     registrationPage
     }) => {
-    const uniqueCustomer = generateUniqueCustomer();
+    const uniqueCustomer = await generateUniqueCustomer();
     console.log(`Generated Customer Data: ${JSON.stringify(uniqueCustomer)}`);
     await homePage.createAccountLink.click();
     const title = await registrationPage.getTitle();
@@ -46,7 +46,7 @@ test.describe('Login and Registration Tests', () => {
   });
 
   test('should login with valid credentials', async ({ loginPage }) => {
-    const uniqueCustomer = generateUniqueCustomer();
+    const uniqueCustomer = await generateUniqueCustomer();
     console.log(`Generated Customer Data: ${JSON.stringify(uniqueCustomer)}`);
     const response = await createCustomer(uniqueCustomer);
     expect(response.email).toBe(uniqueCustomer.customer.email);
