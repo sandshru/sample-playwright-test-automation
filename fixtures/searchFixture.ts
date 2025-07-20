@@ -1,6 +1,6 @@
-import { test as base } from '@playwright/test';
-import { HomePage } from '../pages/homePage';
-import { SearchResultPage } from '../pages/searchResultPage';
+import { test as base } from "@playwright/test";
+import { HomePage } from "../pages/homePage";
+import { SearchResultPage } from "../pages/searchResultPage";
 
 export const test = base.extend<{
   homePage: HomePage;

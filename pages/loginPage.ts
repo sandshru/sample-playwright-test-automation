@@ -10,10 +10,14 @@ export class LoginPage extends BasePage {
   constructor(page: Page) {
     super(page);
 
-    this.emailInput = page.getByRole('textbox', { name: 'Email*' });
-    this.passwordInput = page.getByRole('textbox', { name: 'Password* Password' });
-    this.loginButton = page.locator('#send2').first();
-    this.forgotPasswordLink = page.getByRole('link', { name: 'Forgot Your Password?' });
+    this.emailInput = page.getByRole("textbox", { name: "Email*" });
+    this.passwordInput = page.getByRole("textbox", {
+      name: "Password* Password",
+    });
+    this.loginButton = page.locator("#send2").first();
+    this.forgotPasswordLink = page.getByRole("link", {
+      name: "Forgot Your Password?",
+    });
   }
 
   async navigateTo() {

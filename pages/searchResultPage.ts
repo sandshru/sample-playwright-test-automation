@@ -3,39 +3,41 @@ import { BaseProductPage } from "./baseProductPage";
 import { getBreadcrumbsLocators } from "../locators";
 
 export class SearchResultPage extends BaseProductPage {
-    protected breadcrumbsLocators: { 
-        homeLink: Locator; 
-        search: Locator;
-    };
-    readonly searchBreadcrumb: Locator;
-    readonly displayModeGridButton: Locator;
-    readonly displayModeListButton: Locator;
-    readonly noticeMessageLocator: Locator;
+  protected breadcrumbsLocators: {
+    homeLink: Locator;
+    search: Locator;
+  };
+  readonly searchBreadcrumb: Locator;
+  readonly displayModeGridButton: Locator;
+  readonly displayModeListButton: Locator;
+  readonly noticeMessageLocator: Locator;
 
-    constructor(page) {
-        super(page);
-        
-        this.breadcrumbsLocators = getBreadcrumbsLocators(page);
-        this.searchBreadcrumb = this.breadcrumbsLocators.search;
-        this.displayModeGridButton = page.locator('.mode-grid');
-        this.displayModeListButton = page.locator('.mode-list'); 
-        this.noticeMessageLocator = page.locator('.notice')
-    }
+  constructor(page) {
+    super(page);
 
-    getSearchResultsHeadingLocator(searchTerm: string): Locator {
-        return this.page.getByRole('heading', { name: `Search results for: \'${searchTerm}\'` }).locator('span');
-    }
+    this.breadcrumbsLocators = getBreadcrumbsLocators(page);
+    this.searchBreadcrumb = this.breadcrumbsLocators.search;
+    this.displayModeGridButton = page.locator(".mode-grid");
+    this.displayModeListButton = page.locator(".mode-list");
+    this.noticeMessageLocator = page.locator(".notice");
+  }
 
-    async getSearchResultsTitle() {
-        return this.page.title();
-    }
+  getSearchResultsHeadingLocator(searchTerm: string): Locator {
+    return this.page
+      .getByRole("heading", { name: `Search results for: \'${searchTerm}\'` })
+      .locator("span");
+  }
 
-    async getSearchResultsCount() {
-        const itemCountText = await this.itemCountLocator.textContent();
-        if(!itemCountText) {
-            throw new Error('Item count text is empty');
-        }
-        console.log(itemCountText)
-        return Number(itemCountText);
+  async getSearchResultsTitle() {
+    return this.page.title();
+  }
+
+  async getSearchResultsCount() {
+    const itemCountText = await this.itemCountLocator.textContent();
+    if (!itemCountText) {
+      throw new Error("Item count text is empty");
     }
+    console.log(itemCountText);
+    return Number(itemCountText);
+  }
 }
