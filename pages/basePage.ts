@@ -58,7 +58,7 @@ export class BasePage {
 
     this.logoLink = page.getByRole('link', { name: 'store logo' })
     this.searchBox = page.getByRole('combobox', { name: ' Search' })
-    this.searchIconSubmitButton = page.getByLabel('Search');
+    this.searchIconSubmitButton = page.locator('button.search');
 
     const headerLocators = getHeaderLocators(page);
     this.header = headerLocators.header;
