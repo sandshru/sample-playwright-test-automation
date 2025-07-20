@@ -13,10 +13,10 @@ export const apiClient: AxiosInstance = axios.create({
 });
 
 // Optional interceptor for logging/debugging
-// apiClient.interceptors.request.use(request => {
-//   console.log('Starting Request', JSON.stringify(request, null, 2));
-//   return request;
-// });
+apiClient.interceptors.request.use(request => {
+  console.log('Starting Request', JSON.stringify(request, null, 2));
+  return request;
+});
 
 apiClient.interceptors.response.use(
   (response) => response,
