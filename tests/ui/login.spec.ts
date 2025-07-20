@@ -11,7 +11,10 @@ import { expect } from "@playwright/test";
 test.describe("Login and Registration Tests", () => {
   test.beforeEach(async ({ homePage }) => {
     await homePage.navigateTo();
-    await homePage.consentButton.click();
+    const consentVisibility = await homePage.consentButton.isVisible()
+    if(consentVisibility) {
+      await homePage.consentButton.click();
+    }
   });
 
   test("should register and verify that the user is logged in", async ({

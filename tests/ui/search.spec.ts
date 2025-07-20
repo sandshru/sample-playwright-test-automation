@@ -5,7 +5,10 @@ import { expect } from "@playwright/test";
 test.describe("Search Tests", () => {
   test.beforeEach(async ({ homePage }) => {
     await homePage.navigateTo();
-    await homePage.consentButton.click();
+    const consentVisibility = await homePage.consentButton.isVisible()
+    if(consentVisibility) {
+      await homePage.consentButton.click();
+    }
   });
 
   const testData = ["Shoes", "Sweat", "Rain coat", "Joggers", "shorts"];
