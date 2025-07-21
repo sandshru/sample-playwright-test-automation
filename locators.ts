@@ -68,7 +68,7 @@ export const getProductTileLocators = (page: Page) => {
   return {
     nthProductTile: (index: number) => productTile.nth(index),
     productTitle: (index: number) =>
-      productTile.nth(index).locator("product-item-name"),
+      productTile.nth(index).locator(".product-item-name"),
     productPrice: (index: number) =>
       productTile.nth(index).locator(".price-wrapper"),
     addToCartButton: (index: number) =>

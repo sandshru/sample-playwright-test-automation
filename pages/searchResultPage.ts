@@ -32,12 +32,23 @@ export class SearchResultPage extends BaseProductPage {
     return this.page.title();
   }
 
+  async getProductTitles(count: number) {
+    let titlesArray: string[] = [];
+    count = count >= 12 ? 12 : count;
+    for (let i = 0; i < count; i++) {
+      titlesArray.push(
+        await this.productTileLocators.productTitle(i).innerText()
+      );
+    }
+    return titlesArray;
+  }
+
   async getSearchResultsCount() {
     const itemCountText = await this.itemCountLocator.textContent();
     if (!itemCountText) {
       throw new Error("Item count text is empty");
     }
-    console.log(itemCountText);
+    console.log(`${itemCountText} items found by UI search`);
     return Number(itemCountText);
   }
 }

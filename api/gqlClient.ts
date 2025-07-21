@@ -1,10 +1,10 @@
 import axios from "axios";
 import { AxiosInstance } from "axios";
 
-const BASE_URL = process.env.API_BASE_URL || "";
+const GQL_URL = process.env.GQL_URL || "";
 
-export const apiClient: AxiosInstance = axios.create({
-  baseURL: BASE_URL,
+export const gqlClient: AxiosInstance = axios.create({
+  baseURL: GQL_URL,
   headers: {
     "Content-Type": "application/json",
   },
@@ -12,12 +12,12 @@ export const apiClient: AxiosInstance = axios.create({
 });
 
 // Optional interceptor for logging/debugging
-// apiClient.interceptors.request.use(request => {
+// gqlClient.interceptors.request.use(request => {
 //   console.log('Starting Request', JSON.stringify(request, null, 2));
 //   return request;
 // });
 
-apiClient.interceptors.response.use(
+gqlClient.interceptors.response.use(
   (response) => response,
   (error) => {
     console.error("API Error:", error.response?.data || error.message);

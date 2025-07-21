@@ -28,3 +28,32 @@ export interface SearchResponse {
   };
   total_count: number;
 }
+
+export interface GQLProductSearchResponse {
+  data: ProductsData;
+}
+
+interface ProductsData {
+  products: Products;
+}
+
+interface Products {
+  total_count: number;
+  items: GQLItem[];
+}
+
+interface GQLItem {
+  sku: string;
+  name: string;
+  description: {
+    html: string;
+  };
+  configurable_options: ConfigurableOption[];
+}
+
+interface ConfigurableOption {
+  label: string;
+  values: Array<{
+    label: string;
+  }>;
+}
