@@ -6,6 +6,7 @@ import {
   getCustomerIDByToken,
   getCustomer,
 } from "../../api/customer-api";
+import { invalidLoginDetails } from "../../test-data/invalid-login-test";
 import { expect } from "@playwright/test";
 
 test.describe("Login and Registration Tests", () => {
@@ -70,3 +71,26 @@ test.describe("Login and Registration Tests", () => {
     );
   });
 });
+
+test.describe("Invalid Login tests", () => {
+  test.beforeEach(async ({ homePage }) => {
+    await homePage.navigateTo();
+    const consentVisibility = await homePage.consentButton.isVisible()
+    if(consentVisibility) {
+      await homePage.consentButton.click();
+    }
+  });
+
+  for (const loginData of invalidLoginDetails) {
+    test(`should see the appropriate error message with invalid credentials email: ${loginData.email}, password: ${loginData.password}`, async({ loginPage }) => {
+      await loginPage.navigateTo();
+      await loginPage.login(
+        loginData.email,
+        loginData.password
+      );
+      if(loginData.email && loginData.password) await expect(loginPage.errorMessageLocator).toContainText("The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.");
+      if(!loginData.email) await expect(loginPage.emailError).toBeVisible();
+      if(!loginData.password) await expect(loginPage.emailError).toBeVisible();
+    })
+  }
+})
