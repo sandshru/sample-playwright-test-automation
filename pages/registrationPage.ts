@@ -11,12 +11,19 @@ export class RegistrationPage extends BasePage {
 
   constructor(page: Page) {
     super(page);
-    this.firstNameInput = page.getByRole('textbox', { name: 'First Name*' });
-    this.lastNameInput = page.getByRole('textbox', { name: 'Last Name*' });
-    this.emailInput = page.getByRole('textbox', { name: 'Email*' });
-    this.passwordInput = page.getByRole('textbox', { name: 'Password*', exact: true });
-    this.confirmPasswordInput = page.getByRole('textbox', { name: 'Confirm Password*' });
-    this.createAccountButton = page.getByRole('button', { name: 'Create an Account' });
+    this.firstNameInput = page.getByRole("textbox", { name: "First Name*" });
+    this.lastNameInput = page.getByRole("textbox", { name: "Last Name*" });
+    this.emailInput = page.getByRole("textbox", { name: "Email*" });
+    this.passwordInput = page.getByRole("textbox", {
+      name: "Password*",
+      exact: true,
+    });
+    this.confirmPasswordInput = page.getByRole("textbox", {
+      name: "Confirm Password*",
+    });
+    this.createAccountButton = page.getByRole("button", {
+      name: "Create an Account",
+    });
   }
 
   async navigateTo() {
@@ -27,7 +34,12 @@ export class RegistrationPage extends BasePage {
     return this.page.title();
   }
 
-  async fillRegistrationForm(firstName: string, lastName: string, email: string, password: string) {
+  async fillRegistrationForm(
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string
+  ) {
     await this.firstNameInput.fill(firstName);
     await this.lastNameInput.fill(lastName);
     await this.emailInput.fill(email);
